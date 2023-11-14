@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  pg:
+    container_name: athena-api-db
+    image: postgres:15-alpine
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      - athenanetwork
+    environment:
+      TZ: UTC
+      POSTGRES_USER: athena
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5433:5432
+  redis:
+    container_name: athena-api-redis
+    image: redis/redis-stack
+    restart: always
+    networks:
+      - athenanetwork
+    ports:
+      - 6379:6379
+      - 8001:8001
+
+networks:
+  athenanetwork:
+    name: athenanetwork
+  outside:
+    name: outside
+    external: true

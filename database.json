@@ -1,0 +1,11 @@
+{
+  "pg": {
+    "driver": "pg",
+    "user": "athena",
+    "password": "athena",
+    "host": "localhost",
+    "database": "athena",
+    "port": "5433",
+    "schema": "athena"
+  }
+}
